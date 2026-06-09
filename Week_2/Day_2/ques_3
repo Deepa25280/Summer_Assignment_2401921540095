@@ -1,0 +1,35 @@
+class Solution {
+    public List<Integer> findAnagrams(String s, String p) {
+        List<Integer>li = new ArrayList<>();
+         int[] freq = new int[26];
+
+        for (int i = 0; i < p.length(); i++) {
+            freq[p.charAt(i) - 'a']++;
+        }
+        
+        int winSize = p.length();
+
+        for (int i = 0; i < s.length(); i++) {
+            int[] winFreq = new int[26];
+            int winIdx = 0, idx = i;
+            while (winIdx < winSize && idx < s.length()) {
+                winFreq[s.charAt(idx) - 'a']++;
+                winIdx++;
+                idx++;
+            }
+            if (isSame(freq, winFreq)) {
+                 li.add(i);
+            }
+        }
+        return li;
+    }
+
+    private boolean isSame(int[] freq1, int[] freq2) {
+        for (int i = 0; i < 26; i++) {
+            if (freq1[i] != freq2[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
