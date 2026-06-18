@@ -1,0 +1,36 @@
+class Solution {
+    public int largestRectangleArea(int[] barHeights) {
+        int totalBars = barHeights.length;
+        Stack<Integer> increasingBars = new Stack<>();
+        int maximumArea = 0;
+
+        for (int currentIndex = 0; currentIndex <= totalBars; currentIndex++) {
+
+            int currentHeight =
+                    (currentIndex == totalBars) ? 0 : barHeights[currentIndex];
+
+            while (!increasingBars.isEmpty() &&
+                   currentHeight < barHeights[increasingBars.peek()]) {
+
+                int heightIndex = increasingBars.pop();
+                int rectangleHeight = barHeights[heightIndex];
+
+                int leftBoundary =
+                        increasingBars.isEmpty() ? -1 : increasingBars.peek();
+
+                int rectangleWidth =
+                        currentIndex - leftBoundary - 1;
+
+                maximumArea = Math.max(
+                        maximumArea,
+                        rectangleHeight * rectangleWidth
+                );
+            }
+
+            increasingBars.push(currentIndex);
+        }
+
+        return maximumArea;
+    }
+}
+    
