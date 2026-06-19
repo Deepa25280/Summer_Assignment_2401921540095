@@ -1,0 +1,24 @@
+class RecentCounter {
+    List<Integer> a;
+    int s;
+
+    public RecentCounter() {
+        a = new ArrayList<>();
+        s = 0;
+    }
+
+    public int ping(int t) {
+        a.add(t);
+
+        while (a.get(s) < t - 3000) {
+            s++;
+        }
+
+        return a.size() - s;
+    }
+}
+/**
+ * Your RecentCounter object will be instantiated and called as such:
+ * RecentCounter obj = new RecentCounter();
+ * int param_1 = obj.ping(t);
+ */
